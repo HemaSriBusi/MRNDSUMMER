@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student Details</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        Student Name : {{ form1.name }}<br>
+        Email : {{ form1.email }}<br>
+        DBFolder : {{ form1.db_folder }}<br>
+        problem1 : {{ form2.problem1 }}<br>
+        problem2 : {{ form2.problem2 }}<br>
+        problem3 : {{ form2.problem3 }}<br>
+        problem4 : {{ form2.problem4 }}<br>
+        <button><span class="text">Submit</span></button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddCollegeDetails</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        College Name: {{ form.name }}<br>
+        Acronym: {{ form.acronym }}<br>
+        Location: {{ form.location }}<br>
+        Contact: {{ form.contact }}<br>
+        <button><span class="text">Submit</span></button>
+    </form>
+</body>
+</html>

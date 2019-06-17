@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'onlineapp/css/colleges.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'onlineapp/css/bulma.css' %}">
+
+</head>
+<body>
+<nav class="navbar is-success">
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            {% if perms.onlineapp.addCollege %}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{%url 'addCollege' %}"><strong>Add College</strong></a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="navbar-end">
+            {% if request.user.is_authenticated %}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{%url 'logout' %}"><strong>Logout</strong></a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+    <center>
+        <table class = "table is-hoverable" bgcolor="green">
+            <tr>
+                <td >Acronym</td>
+                <td>College</td>
+                <td>Actions</td>
+                <td></td>
+            </tr>
+            {% for college in colleges %}
+            <tr>
+                <td><a href="{%url 'college_details' college.acronym %}">{{college.acronym}}</a></td>
+                <td>{{college.name}}</td>
+                {% if perms.onlineapp.editCollege %}
+                    <td><a href="{%url 'editCollege' college.id%}">edit</a></td>
+                {% endif %}
+                {% if perms.onlineapp.deleteCollege %}
+                    <td><a href="{%url 'deleteCollege' college.id%}">delete</a> </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </table>
+
+    </center>
+</body>
+</html>

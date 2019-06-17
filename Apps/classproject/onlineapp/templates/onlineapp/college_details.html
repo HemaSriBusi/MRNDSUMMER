@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'onlineapp/css/bulma.css' %}">
+    <style>
+        .tab{
+            background-color: #C0C0C0;
+            width: 100%;
+        }
+        h1{
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+            color: #FFFF00;
+        }
+    </style>
+</head>
+<body bgcolor="4CAF50">
+    <center>
+        <h1>
+            {% if perms.onlineapp.addStudent %}
+                <a href="{%url 'addStudent' colleges.id%}">Add Student</a>
+            {% endif %}
+        </h1>
+        <table class = "table is-striped is-hoverable tab">
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>TotalMarks</td>
+            </tr>
+
+        {% for student in students %}
+        <tr>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.mocktest1.total}}</td>
+            {% if perms.onlineapp.editStudent %}
+                <td><a href="{%url 'editStudent' student.id%}">edit</a></td>
+            {% endif %}
+            {% if perms.onlineapp.deleteStudent %}
+                <td><a href="{%url 'deleteStudent' student.id%}">delete</a> </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </table>
+
+    </center>
+</body>
+</html>

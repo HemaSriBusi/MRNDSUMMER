@@ -1,0 +1,47 @@
+from django.shortcuts import render
+from onlineapp.models import *
+# Create your views here.
+from django.http import HttpResponse
+def hello_world(req):
+    return HttpResponse("hello world")
+
+def hello(req):
+    val = req.headers["foo"]
+    return render(val)
+
+def get_my_clg(req):
+    c = College.objects.values('name').get(acronym='svecw')
+    return HttpResponse(c['name'])
+
+def get_all_clg(req):
+    c = College.objects.values_list('acronym','name')
+    s = "<table border=5px padding = 5px> "
+    s += "<tr><td>" + "Acronym" + "</td><td>"+ "Name" + "</td></tr>"
+    for i in c:
+        s += "<tr><td>"+i[0]+  "</td><td>" + i[1]+"</td></tr>"
+    s += "</table>"
+    return HttpResponse(s)
+
+def get_clg_temp(req):
+    colleges = College.objects.values('acronym', 'name')
+    return render(req,"onlineapp/colleges.html",{'colleges':colleges})
+
+def students_view(request, id):
+    students = Student.objects.filter(college__id=id)
+    return render(request,"onlineapp/students.html",{'students':students})
+
+def css(request):
+    return render(request,'onlineapp/sample.html')
+
+def insertClg(request):
+    return render(request,'onlineapp/addCollege.html')
+
+def addClgFormSubmission(request):
+    print("Form success")
+    college_name = request.POST['college_name']
+    acronym = request.POST['acronym']
+    location = request.POST['location']
+    contact = request.POST['contact']
+    college = College(name=college_name,acronym=acronym,location=location,contact=contact)
+    college.save()
+    return render(request, 'onlineapp/addCollege.html')

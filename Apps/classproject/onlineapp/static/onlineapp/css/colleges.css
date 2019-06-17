@@ -1,0 +1,17 @@
+.h1 {
+  padding: 10px;
+  background: #1abc9c;
+  color: white;
+  font-size: 20px;
+}
+.tab {
+  border-collapse: collapse;
+  width: 70%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #C0C0C0;}
